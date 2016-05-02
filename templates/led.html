@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+   <body>
+   
+      <h2>Control panel</h2>
+      
+      <form action = "/led" method = post>
+         <fieldset>
+           
+
+           <legend>Parameters</legend>
+            {{ form.hidden_tag() }}
+
+            
+              <div style="font-size: 20px;">
+               {{ form.Port.label }}<br>
+               {{ form.Port }}
+               <br>
+               {{ form.SetSerial }}
+               <br>
+               <br>
+       
+               
+               {{ form.LED.label }}<br>
+               {{ form.LED }}
+               <br>
+
+               <br>
+
+               {{ form.led_on }}
+               {{ form.led_off }}
+            </div>
+        
+        <h2>{{platform_choice}} </h2>
+            
+         </fieldset>
+      </form>
+      
+   </body>
+</html>
