@@ -16,8 +16,9 @@ def contact():
 	form =  ContactForm()
 	global SerialPort
 	
+	
 	if request.method == 'POST':
-		
+				
 		# Press set serial button
 		if 'SetSerial' in request.form:  
 			
@@ -34,24 +35,18 @@ def contact():
 
 
 
-
+		
+# Press Led_on button			
+		elif 'led_button' in request.form:
+			
 # radio button to control LED
 			if form.LED.data == '1':
 				SerialPort.led_on()
 			elif form.LED.data == '2':
 				SerialPort.led_off()
+				
+		return render_template('led.html', form = form)
 			
-
-
-		
-# Press Led_on button			
-		elif 'led_on' in request.form:
-			SerialPort.led_on()
-			return render_template('led.html', form = form)
-			
-		elif 'led_off' in request.form:
-			SerialPort.led_off()
-			return render_template('led.html', form = form)
 	
 	elif request.method == 'GET':
 		return render_template('led.html', form = form)

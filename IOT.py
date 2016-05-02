@@ -17,11 +17,11 @@ class ArduinoControl:
   
 	def led_on(self):
 		ArduinoControl.ser.write('H')
-		print "LED: ON"
+		ArduinoControl.led_status = True
 	
 	def led_off(self):
 		ArduinoControl.ser.write('L')
-		print "LED: OFF"
+		ArduinoControl.led_status = False
    
 #usage of this class
 #serial = ArduinoControl('/dev/cu.wchusbserialfa140')
