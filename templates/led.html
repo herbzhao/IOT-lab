@@ -7,9 +7,16 @@
       <form action = "/led" method = post>
          <fieldset>
            
+{% for message in form.Port.errors %}
+ <div class="flash">{{ message }}</div>
+{% endfor %}
+
+
+
 
            <legend>Parameters</legend>
             {{ form.hidden_tag() }}
+            {{ form.csrf_token }}
 
             
               <div style="font-size: 20px;">
@@ -22,6 +29,11 @@
                {{ form.LED.label }}<br>
                {{ form.LED }}
                {{ form.led_button }}
+               <br>
+               <br>
+               {{ form.Temperature.label}}<br>
+               {{ form.Temperature}}
+               {{ form.SetTemp }}
             </div>
         
         <h2>{{platform_choice}} </h2>
