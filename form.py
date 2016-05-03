@@ -5,7 +5,7 @@ from wtforms import validators, ValidationError   # validator for input
 
 
 class ContactForm(Form):
-	Port = TextField('Arduino serial port', [validators.Required("Please specify the serial port.")])
+	Port = TextField('Arduino serial port', default = /dev/ttyUSB0)
 
 	LED = RadioField('LED switch', choices = [(1,'ON'),(2,'OFF')], default=2)
 	
