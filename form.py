@@ -1,39 +1,60 @@
-from flask_wtf import Form
-from wtforms import TextField, IntegerField, TextAreaField, SubmitField, RadioField, SelectField   # all types of forms
-from wtforms import validators, ValidationError   # validator for input
+from flask import Flask, render_template, request, flash
+from form import ContactForm
+from IOT_Arduino import ArduinoControl
+from IOT_RPi import RPiControl
 
 
+app = Flask(__name__)
+app.secret_key= 'waterscope'
 
-class ContactForm(Form):
-	Port = TextField('Arduino serial port', [validators.Required("Please specify the serial port.")])
 
-	LED = RadioField('LED switch', choices = [(1,'ON'),(2,'OFF')], default=2)
+# few variables initialise
+
+
+@app.route("/led", methods = ['GET', 'POST'])
+def contact():
+	# few variables initialise
+	form =  ContactForm()
+	global SerialPort
 	
-	Temperature = TextField('Incubator temperature')
 	
-	SetSerial = SubmitField("Set Serial Port")  # Click button to set serial port
+	if request.method == 'POST':	
+	#Change default value once user input  something
+		form.Port.default = form.Port.data
+		form.LED.default = form.LED.data
+		form.Temperature.default = form.Temperature.data
+			
+		# Press set serial button
+		if 'SetSerial' in request.form: 
+			# initialise Arduino serial port
+			SerialPort = ArduinoControl(form.Port.data)
+			SerialPort.set_serial()
+			# return to HTML page once submit
+			return render_template('led.html', form = form)
+		
+		
+		# Press Led_switch button			
+		elif 'led_button' in request.form:
+		# radio button to control LED
+			if form.LED.data == '1':
+				SerialPort.led_on()
+			elif form.LED.data == '2':
+				SerialPort.led_off()		
+			return render_template('led.html', form = form)
+			
+		elif 'SetTemp' in request.form:
+			Pass
+			
 	
-	led_button = SubmitField("LED switch")    # click button to swtich on/off LED
-	
-	SetTemp = SubmitField("Temperature change")    # click button to swtich on/off LED
-	
+	elif request.method == 'GET':
+		return render_template('led.html', form = form)
 
-#	Port = TextField('Arduino serial port')
-    
- #  LED = RadioField('LED switch', choices = [(True,'ON'),(2,'OFF')], default=0)
-      
-#   Platform = SelectField('System', choices = [('RPi', 'Raspberry Pi'),('Arduino', 'Arduino')])
-   
+#serialport = ArduinoControl('/dev/cu.wchusbserialfa140')
+#ArduinoControl.set_serial(SerialPort)
+#ArduinoControl.led_on(SerialPort)
 
 
-   
-   
-#   Address = TextAreaField("Address")
-   
-#   email = TextField("Email",[validators.Required("Please enter your email address."),
-#      validators.Email("Please enter your email address.")])
-   
-#   Age = IntegerField("age")
-
-
+if __name__ == "__main__":
+#	app.run(host='0.0.0.0', port=80, debug=True)
+	app.run(debug=True)
 
