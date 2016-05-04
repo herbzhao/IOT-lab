@@ -4,7 +4,7 @@
    
       <h2>Control panel</h2>
       
-      <form action = "/led" method = post>
+      <form action = "/IOT" method = post>
          <fieldset>
            
 {% for message in form.Port.errors %}
@@ -23,7 +23,12 @@
                {{ form.Port.label }}<br>
                {{ form.Port }}
                <br>
-               {{ form.SetSerial }}
+               {{ form.set_serial }}
+               <br>
+               {{ form.port_command.label }}<br>
+               {{ form.port_command }}
+               <br>
+               {{ form.send_command }}
                <br>
                <br>
                {{ form.LED.label }}<br>
@@ -33,7 +38,7 @@
                <br>
                {{ form.Temperature.label}}<br>
                {{ form.Temperature}}
-               {{ form.SetTemp }}
+               {{ form.set_temp }}
             </div>
         
         <h2>{{platform_choice}} </h2>

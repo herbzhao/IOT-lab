@@ -5,17 +5,21 @@ from wtforms import validators, ValidationError   # validator for input
 
 
 class ContactForm(Form):
-	Port = TextField('Arduino serial port', default = /dev/ttyUSB0)
+	Port = TextField('Arduino serial port', default = '/dev/ttyUSB0')
+	
+	port_command = TextField('Any command to Arduino', default = '')
 
 	LED = RadioField('LED switch', choices = [(1,'ON'),(2,'OFF')], default=2)
 	
 	Temperature = TextField('Incubator temperature')
 	
-	SetSerial = SubmitField("Set Serial Port")  # Click button to set serial port
+	set_serial = SubmitField("Set Serial Port")  # Click button to set serial port
+	
+	send_command = SubmitField("Send command")    # click button to swtich on/off LED
 	
 	led_button = SubmitField("LED switch")    # click button to swtich on/off LED
 	
-	SetTemp = SubmitField("Temperature change")    # click button to swtich on/off LED
+	set_temp = SubmitField("Temperature change")    # click button to swtich on/off LED
 	
 
 #	Port = TextField('Arduino serial port')
