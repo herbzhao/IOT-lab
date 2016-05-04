@@ -15,7 +15,7 @@ app.secret_key= 'waterscope'
 def contact():
 	# few variables initialise
 	form =  ContactForm()
-	global serial_port, command
+	global serial_port
 	
 	
 	if request.method == 'POST':	
