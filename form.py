@@ -15,11 +15,13 @@ class ContactForm(Form):
 	
 	set_serial = SubmitField("Set Serial Port")  # Click button to set serial port
 	
-	send_command = SubmitField("Send command")    # click button to swtich on/off LED
+	send_command = SubmitField("Send command")    # click button to send command through serial
+	
+	read_serial = SubmitField("Arduino serial monitor")    # click button to read serial port
 	
 	led_button = SubmitField("LED switch")    # click button to swtich on/off LED
 	
-	set_temp = SubmitField("Temperature change")    # click button to swtich on/off LED
+	set_temp = SubmitField("Temperature change")    # click button to change incubator temperature setting
 	
 
 #	Port = TextField('Arduino serial port')

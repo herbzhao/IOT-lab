@@ -1,50 +1,76 @@
 <!doctype html>
 <html>
-   <body>
-   
-      <h2>Control panel</h2>
-      
-      <form action = "/IOT" method = post>
-         <fieldset>
-           
-{% for message in form.Port.errors %}
- <div class="flash">{{ message }}</div>
-{% endfor %}
+	<head>
+		<!-- import jQuery -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="{{url_for('static', filename='jquery.js') }}">\x3C/script>')</script>
+		<!-- Javascript location -->
+		<script type="text/javascript" src="{{url_for('static', filename='script.js') }}"></script>
+	</head>
+
+    
+    
+
+	<body>
+
+		<h2>Control panel</h2>
+		
+		<form action = "/IOT" method = post>
+		
+			<fieldset>
+				
+				{% for message in form.Port.errors %}
+				<div class="flash">{{ message }}</div>
+				{% endfor %}
 
 
+				<legend>Parameters</legend>
+				{{ form.hidden_tag() }}
+				{{ form.csrf_token }}
+
+				<!-- form start here -->
+				<div style="font-size: 20px;">
+					
+					{{ form.Port.label }}
+					<br>
+					{{ form.Port}}
+					<br>
+					{{ form.set_serial }}
+					<br>
+	
+					<h1 id="monitor">{{read_result}}</h1>
+					{{ form.read_serial }}
+					<br>
+					
+					{{ form.port_command.label }}
+					<br>
+					{{ form.port_command }}
+					<br>
+					
+					
+					{{ form.send_command }}
+					<br>
+					{{ form.LED.label }}
+					<br>
+					
+					
+					{{ form.LED }}
+					{{ form.led_button }}
+					<br>
 
 
-           <legend>Parameters</legend>
-            {{ form.hidden_tag() }}
-            {{ form.csrf_token }}
+					{{ form.Temperature.label}}
+					<br>
+					{{ form.Temperature}}
+					{{ form.set_temp }}
+					
+					<br>
+					
+				</div>
+				
 
-            
-              <div style="font-size: 20px;">
-               {{ form.Port.label }}<br>
-               {{ form.Port }}
-               <br>
-               {{ form.set_serial }}
-               <br>
-               {{ form.port_command.label }}<br>
-               {{ form.port_command }}
-               <br>
-               {{ form.send_command }}
-               <br>
-               <br>
-               {{ form.LED.label }}<br>
-               {{ form.LED }}
-               {{ form.led_button }}
-               <br>
-               <br>
-               {{ form.Temperature.label}}<br>
-               {{ form.Temperature}}
-               {{ form.set_temp }}
-            </div>
-        
-        <h2>{{platform_choice}} </h2>
-            
-         </fieldset>
-      </form>
+			</fieldset>
+		</form>
       
    </body>
 </html>

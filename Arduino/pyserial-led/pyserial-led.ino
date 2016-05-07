@@ -13,16 +13,25 @@ void loop() {
   // see if there's incoming serial data:
   if (Serial.available() > 0) {
     // read the oldest byte in the serial buffer:
-   int Byte = Serial.read();
-   Serial.print(Byte);
+   String input = Serial.readString();
+   Serial.println(input);
 //    Serial.print(Serial.read());
     // if it's a capital H (ASCII 72), turn on the LED:
-    if (Byte == 'H') {
+    if (input == "H") {
       digitalWrite(ledPin, HIGH);
     } 
     // if it's an L (ASCII 76) turn off the LED:
-    if (Byte == 'L') {
+    if (input == "L") {
       digitalWrite(ledPin, LOW);
     } 
-  }
-}
+        // if it's a high (ASCII 76) turn off the LED:
+    if (input == "high") {
+      digitalWrite(ledPin, HIGH);
+    } 
+            // if it's a high (ASCII 76) turn off the LED:
+    if (input == "low") {
+      digitalWrite(ledPin, LOW);
+    } 
+
+}}
+

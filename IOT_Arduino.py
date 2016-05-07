@@ -29,6 +29,8 @@ class ArduinoControl:
 	def excute(self,command): 									#input anything to serial port
 		self.ser.write(command.encode('ascii'))	   #anything is defined by port = ArduinoControl('COM1','H')
 #		self.serial_output = self.command	
+		time.sleep(1)
+
    
 #.encode('ascii') encoding   
 #usage of this class
@@ -41,10 +43,5 @@ class ArduinoControl:
 #ArduinoControl.led_on()
 
 
-class RPiControl:
-	'several defined control functions'
-	def __init__(self, pin):
-		pass
-  
 
 	 

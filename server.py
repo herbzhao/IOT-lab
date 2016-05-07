@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, flash, jsonify
 from form import ContactForm
 from IOT_Arduino import ArduinoControl
 #from IOT_RPi import RPiControl
@@ -12,12 +12,15 @@ app.secret_key= 'waterscope'
 
 
 @app.route("/IOT", methods = ['GET', 'POST'])
+
+def monitor():	
+		monitor = {"value": 'hello'}
+		return jsonify(monitor)
+
 def contact():
 	# few variables initialise
 	form =  ContactForm()
 	global serial_port
-	
-	
 	if request.method == 'POST':	
 	#Change default value once user input  something
 		form.Port.default = form.Port.data
@@ -25,6 +28,8 @@ def contact():
 		form.LED.default = form.LED.data
 		form.Temperature.default = form.Temperature.data
 		# Press set serial button
+		
+		
 		if 'set_serial' in request.form: 
 			# initialise Arduino serial port
 			serial_port = ArduinoControl(form.Port.data)
@@ -34,10 +39,22 @@ def contact():
 		
 		# Press send command to serial button
 		if 'send_command' in request.form: 
-			# initialise Arduino serial port
+			# excute command
   			serial_port.excute(form.port_command.data)
+#  			read_result = serial_port.read()
 			# return to HTML page once submit
 			return render_template('IOT.html', form = form)
+
+			
+			
+		# Press send command to serial button
+		if 'read_serial' in request.form: 
+#  			read_result = serial_port.read()
+			read_result = 123
+			# return to HTML page once submit
+			return render_template('IOT.html', form = form, 
+			read_result = read_result)
+
 
 		# Press Led_switch button			
 		elif 'led_button' in request.form:
@@ -55,6 +72,12 @@ def contact():
 		#initialise the form
 	elif request.method == 'GET':
 		return render_template('IOT.html', form = form)
+		
+		
+
+
+    
+    
 
 #serialport = ArduinoControl('/dev/cu.wchusbserialfa140')
 #ArduinoControl.set_serial(SerialPort)
