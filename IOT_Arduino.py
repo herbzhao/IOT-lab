@@ -12,9 +12,8 @@ class ArduinoControl:
 		self.port = port
 #		self.command = command
 	
-	def set_serial(self):
-		self.ser = serial.Serial(self.port,9600)
-		self.sub = self.ser
+	def set_serial(self):				
+		self.ser = serial.Serial(self.port,230400)
 		time.sleep(2)  #serial port needs 2 sec to be ready
   
   
@@ -25,11 +24,17 @@ class ArduinoControl:
 	def led_off(self):
 		self.ser.write('L')
 		self.led_status = False
-		
+																#anything is defined by port = ArduinoControl('COM1')
 	def excute(self,command): 									#input anything to serial port
-		self.ser.write(command.encode('ascii'))	   #anything is defined by port = ArduinoControl('COM1','H')
-#		self.serial_output = self.command	
-		time.sleep(1)
+		self.ser.write(command.encode('ascii'))	   
+	
+	def monitor(self):		
+		result = str(self.ser.readline())
+		result  = result.translate(None, '\n')
+		voltage = {'value':result}
+		return voltage
+		
+
 
    
 #.encode('ascii') encoding   

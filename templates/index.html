@@ -1,4 +1,6 @@
-<!doctype html>
+{% extends "layout.html" %}
+{% block content %}
+
 <html>
 	<head>
 		<!-- import jQuery -->
@@ -8,11 +10,7 @@
 		<script type="text/javascript" src="{{url_for('static', filename='script.js') }}"></script>
 	</head>
 
-    
-    
-
-	<body>
-
+<body>
 		<h2>Control panel</h2>
 		
 		<form action = "/IOT" method = post>
@@ -37,9 +35,11 @@
 					<br>
 					{{ form.set_serial }}
 					<br>
-	
-					<h1 id="monitor">{{read_result}}</h1>
-					{{ form.read_serial }}
+					
+					<h1>Serial monitor</h1>
+					<button type="button" id="start_monitor" name="start_monitor">Start reading</button><br><br>
+					<strong><div id="voltage"></div></strong>
+					<br>
 					<br>
 					
 					{{ form.port_command.label }}
@@ -67,11 +67,8 @@
 					<br>
 					
 				</div>
-				
 
-			</fieldset>
-		</form>
-      
-   </body>
-</html>
 
+{% endblock %}
+
+</body>

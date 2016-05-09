@@ -17,7 +17,6 @@ class ContactForm(Form):
 	
 	send_command = SubmitField("Send command")    # click button to send command through serial
 	
-	read_serial = SubmitField("Arduino serial monitor")    # click button to read serial port
 	
 	led_button = SubmitField("LED switch")    # click button to swtich on/off LED
 	
