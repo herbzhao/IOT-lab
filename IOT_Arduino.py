@@ -13,7 +13,7 @@ class ArduinoControl:
 #		self.command = command
 	
 	def set_serial(self):				
-		self.ser = serial.Serial(self.port,230400)
+		self.ser = serial.Serial(self.port,9600)
 		time.sleep(2)  #serial port needs 2 sec to be ready
   
   
