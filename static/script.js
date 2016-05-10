@@ -5,11 +5,16 @@ function voltage_read() {
 
 
 function repeater (){
-	setInterval(function(){ voltage_read() }, 70);
+	setInterval(function(){ voltage_read() }, 20);
 }
 
 
-
 $(document).ready(function(){
-	$('#start_monitor').click(function(){repeater()});$
+	repeater()
 });
+
+
+
+//$(document).ready(function(){
+//	$('#start_monitor').click(function(){repeater()});$
+//});
