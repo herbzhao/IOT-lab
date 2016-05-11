@@ -14,7 +14,7 @@ class ArduinoControl:
 	
 	def set_serial(self):				
 		self.ser = serial.Serial(self.port,9600)
-		time.sleep(2)  #serial port needs 2 sec to be ready
+#		time.sleep(2)  #serial port needs 2 sec to be ready
   
   
 	def led_on(self):

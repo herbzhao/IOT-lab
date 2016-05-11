@@ -22,6 +22,14 @@ void setup() {
 
 // the loop routine runs over and over again forever:
 void loop() {
+  voltage_read();
+  serial_command();
+  delay(10);
+}
+
+
+
+void voltage_read(){
 
   // read the input on analog pin 0:
   int sensorValue = analogRead(A0);
@@ -31,8 +39,11 @@ void loop() {
 
   //print voltage line by line
   Serial.println(voltage);
-  
 
+}
+
+
+void serial_command(){
   //read command from web interface
   String input = Serial.readString();
   //input high , turn on LED
@@ -42,7 +53,5 @@ void loop() {
             // if it's a high (ASCII 76) turn off the LED:
     if (input == "low") {
       digitalWrite(ledPin, LOW);
-    } 
-    delay(10);
-
+    }  
 }

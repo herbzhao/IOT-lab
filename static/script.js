@@ -5,7 +5,7 @@ function voltage_read() {
 
 
 function repeater (){
-	setInterval(function(){ voltage_read() }, 20);
+	setInterval(function(){ voltage_read() }, 50);
 }
 
 
