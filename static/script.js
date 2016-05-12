@@ -5,12 +5,13 @@ function voltage_read() {
 
 
 function repeater (){
-	setInterval(function(){ voltage_read() }, 50);
+	setInterval(function(){ voltage_read() }, 90);
 }
 
 
 $(document).ready(function(){
 	repeater()
+
 });
 
 

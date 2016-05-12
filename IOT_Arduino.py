@@ -31,6 +31,7 @@ class ArduinoControl:
 	def monitor(self):		
 		result = str(self.ser.readline())
 		result  = result.translate(None, '\n')
+		result  = result.translate(None, '\r')
 		voltage = {'value':result}
 		return voltage
 		

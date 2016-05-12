@@ -1,37 +1,46 @@
+//Prep for potentiometer
 #include <SPI.h>
 #include <mcp4xxx.h>
-
 using namespace icecave::arduino;
-
 MCP4XXX* pot;
-
 float set_voltage;
+
+
+//set name for GPIO pins
+const int ledPin = 13; // the pin that the LED is attached to
+String pot_command;
+String pin_command;
 
 void setup()
 {
-    // Construct an instance of the MCP4XXX to manage the digipot.
-    // The first parameter is the pin number to use for 'chip select' (CS), if you are
-    // using the default SPI CS pin for your Arduino you can simply omit this parameter.
-    
-    //connect chip select pin at 10
-    //set to 0 position
+    //connect chip select (SS) pin at 10
     pot = new MCP4XXX(10);
+    //set to 0V at P0A
     pot->set(pot->max_value());
 
     //prep serial
-    Serial.flush();
+//    Serial.flush();
     Serial.begin(9600);
-    Serial.setTimeout(50);
+    Serial.end();
+    Serial.begin(9600);
+    Serial.setTimeout(100);
+
+    //set GPIO pins
+    pinMode(ledPin, OUTPUT); // the pin connect to on-board LED
 }
 
 void loop()
 {
     //print voltage
     voltage_read();
-    delay(50);
+    delay(20);
     //read command from web interface
-    serial_command();
+    potentiometer_control();
+    delay(30);
+//    GPIO_control();
 }
+
+
 
 //set pot to any number
 void SetPot(){
@@ -55,15 +64,32 @@ void voltage_read(){
 
 
 //Receive command from serial
-void serial_command(){
+void potentiometer_control(){
   //read command from web interface
-  String input = Serial.readString();
-//  String input_value;
-  input.remove(0, 3);
-  set_voltage = 256-input.toFloat()*256/5;
+  String pin_command = Serial.readString();
+  pot_command = pin_command;
+  //Control potentiometer: type set+value
+  pot_command.remove(0, 3);
+  set_voltage = 256-pot_command.toFloat()*256/5;
       if (set_voltage > -1 and set_voltage < 256) {
       SetPot();
       }
 }
 
+/*
+
+//Receive command from serial
+void GPIO_control(){
+  //read command from web interface
+  // control any GPIO pins
+      if (pin_command == "high") {
+      digitalWrite(ledPin, HIGH);
+    } 
+            // if it's a high (ASCII 76) turn off the LED:
+    if (pin_command == "low") {
+      digitalWrite(ledPin, LOW);
+    }  
+}
+
+*/
 

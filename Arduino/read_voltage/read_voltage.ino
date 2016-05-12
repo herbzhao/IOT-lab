@@ -12,7 +12,9 @@ const int ledPin = 13; // the pin that the LED is attached to
 // the setup routine runs once when you press reset:
 void setup() {
   // initialize serial communication at 9600 bits per second:
-  Serial.flush();
+//  Serial.flush();
+  Serial.begin(9600);
+  Serial.end();
   Serial.begin(9600);
   //this speed up the String input = Serial.readString();
   Serial.setTimeout(100);
