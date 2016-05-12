@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<html>
+  
+  <head>
+		<!-- Javascript location -->
+		<script type="text/javascript" src="{{url_for('static', filename='script.js') }}"></script>
+  </head>
+
+  <body>
+	<h1>GOOGLE CHARTS</h1>
+    <!--Div that will hold the pie chart--> 
+    <!-- can also specify size of chart with style = "height = px;"-->
+    <h1>voltage here</h1>
+    <div id="chart_div"></div>
+    
+
+{% endblock %}
+
+  </body>
+ 
+</html>
+
+
