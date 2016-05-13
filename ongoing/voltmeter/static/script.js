@@ -5,80 +5,89 @@ $(document).ready(function(){
 	$('h1').click(function(){
 		$('h1').fadeOut();}
 		);
-		
-	repeater()
 });
 
 
 // Google chart here
 
 // Load the Visualization API and the corechart package.
-google.charts.load('current', {packages: ['gauge']});
+google.charts.load('current', {'packages':['gauge']});
 
 // Set a callback to run when the Google Visualization API is loaded.
 google.charts.setOnLoadCallback(drawChart);
 
-
-function repeater (){
-	setInterval(function(){ voltage_read() }, 90);
-}
-
-function voltage_read() {
-		$.getJSON($SCRIPT_ROOT + '/result', function(data)
-	{$('#voltage').text(data.value);});
-}
-
-
 // Callback that creates and populates a data table,
 // instantiates the  chart, passes in the data and draws it.
 
-
 function drawChart() {
+	
+// Replace the data source URL on next line with your data source URL.	
+
+
+	
+
+
+var options = {
+//  animation.easing:out,
+  width: 400, height: 200,
+  redFrom: 4.5, redTo: 5,
+  yellowFrom:4, yellowTo: 4.5,
+  minorTicks: 0.01, max:5
+};
    
-   
-    var voltage = $.ajax({
-	url: $SCRIPT_ROOT + '/result',
+
+var jsonData = $.ajax({
+	url: $SCRIPT_ROOT + '/voltage',
 	dataType: "json",
-	data = data.value,
 	async: false
 	}).responseText;
-
-
-    var data = google.visualization.arrayToDataTable([
-        ['Label', 'Value'],
-        ['Voltage', voltage]
-    ]);
-
-    var options = {
-        width: 400,
-        height: 120,
-        redFrom: 4,
-        redTo: 5,
-        yellowFrom: 3,
-        yellowTo: 4,
-        minorTicks: 0.01,
-        max: 5
-    };
-    var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
-    chart.draw(data, options);
+	
+var data = new google.visualization.DataTable(jsonData);
 
 
 
 
-    // dynamic update, randomly assign new values and redraw
-/*    function getData () {
-        $.ajax({
-            url: $SCRIPT_ROOT + '/result',
-            success: function (response) {
-                data.setValue(0, 1, response);
-                chart.draw(data, options);
-                setTimeout(getData, 100);
-            }
-        });
-    }
-*/
 
-getData();
-
+function updateChart () {
+	$.ajax({
+		url: $SCRIPT_ROOT + '/voltage',
+		dataType: "json",
+		success: function (response) {
+			
+			var jsonData = $.ajax({
+			url: $SCRIPT_ROOT + '/voltage',
+			dataType: "json",
+			async: false
+			}).responseText;
+			
+			var data = new google.visualization.DataTable(jsonData);
+			// use response to create/update DataTable
+			chart.draw(data, options);
+			// update the chart again in 30 ms
+			setTimeout(updateChart, 30);
+		},
+		error: function (response) {}
+});
 }
+
+
+
+var data = new google.visualization.DataTable(jsonData);
+
+// Create our data table out of JSON data loaded from server.
+//var data = new google.visualization.DataTable(jsonData);
+
+// Instantiate and draw our chart, passing in some options.
+
+var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+
+updateChart();
+
+// Set chart options
+
+//updateChart();
+
+}   // end of callback - drawChart
+      
+      
 

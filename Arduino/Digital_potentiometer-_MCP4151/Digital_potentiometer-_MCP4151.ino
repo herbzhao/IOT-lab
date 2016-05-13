@@ -36,7 +36,7 @@ void loop()
     delay(20);
     //read command from web interface
     potentiometer_control();
-    delay(30);
+    delay(20);
 //    GPIO_control();
 }
 

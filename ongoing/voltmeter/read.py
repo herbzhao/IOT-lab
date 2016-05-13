@@ -7,14 +7,32 @@ import sqlite3
 import gviz_api
 
 
-@app.route('/')
-def template():	
-	return render_template('index.html')
+
+serial_port = ArduinoControl('/dev/cu.wchusbserialfa140')
+serial_port.set_serial()
+
+def query_data():	
+	global serial_port
+	voltage = serial_port.voltmeter()
+	return voltage
+
+voltage = query_data()
+description = [("Label","string"),("Value","number")]
+data = [["Voltage",voltage]]
+
+#print description
+#print type(description)
+print data
+print type(data)
 
 
-@app.route('/database')
-def query_data():
-	
-    # Prepare Data table description
-	description = [("ID","number"),("Temp","number")]
+data_table = gviz_api.DataTable(description)	
+	# Loading the data into the gviz_api.DataTable
+data_table.LoadData(data)
+	# Create a JSON responsse.
+json_data = data_table.ToJSon(columns_order=("Label","Value"),
+		order_by="Label")
+
+
+print json_data
 

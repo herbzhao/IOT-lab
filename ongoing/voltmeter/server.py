@@ -43,7 +43,7 @@ def query_data():
 	# Prepare database value for data_table
 
     #format the data from database
-	data = ["Voltage",voltage]
+	data = [["Voltage",voltage]]
 		
 	
 	# Loading the description into the gviz_api.DataTable
@@ -57,6 +57,7 @@ def query_data():
 	json_data = data_table.ToJSon()
 
 	return json_data
+
 
 
 
