@@ -29,8 +29,6 @@ void loop() {
   delay(10);
 }
 
-
-
 void voltage_read(){
 
   // read the input on analog pin 0:

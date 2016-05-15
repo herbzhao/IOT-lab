@@ -19,12 +19,10 @@
 				{% endfor %}
 
 
-				<legend>Parameters</legend>
-				{{ form.hidden_tag() }}
-				{{ form.csrf_token }}
+
 
 				<!-- form start here -->
-				<div style="font-size: 20px;">
+				<div>
 					
 					{{ form.Port.label }}
 					<br>
@@ -33,8 +31,8 @@
 					{{ form.set_serial }}
 					<br>
 					
-					<h1>Serial monitor</h1>
-<!--					<button type="button" id="start_monitor" name="start_monitor">Start reading</button><br><br>   -->
+					<h3>Serial monitor</h3>
+		<!--<button type="button" id="start_monitor" name="start_monitor">Start reading</button><br><br>   -->
 					<strong><div id="voltage"></div></strong>
 					<br>
 					<br>
@@ -43,27 +41,53 @@
 					<br>
 					{{ form.port_command }}
 					<br>
+					<h3>type go + value to control potentiometer</h3>
 					
 					
 					{{ form.send_command }}
 					<br>
-					{{ form.LED.label }}
-					<br>
-					
-					
-					{{ form.LED }}
-					{{ form.led_button }}
+										
+					<h3>LED control (pin13) </h3>
+					{{ form.led_button_on }}
+					{{ form.led_button_off }}
 					<br>
 
+			</div>
+			</fieldset>
+			<br>
+			
+			
+			<fieldset>
+			<div>
 
+					<h3>Temperature monitor</h3>
+					<strong><div id="temp"></div></strong>
+					<br>
+									
+					<br>
+					{{ form.relay_pin.label}}
+					<br>
+					{{ form.relay_pin}}
+					
+					
+					<br>
+					{{ form.sensor_location.label}}
+					<br>
+					{{ form.sensor_location}}
+					{{ form.set_sensor}}
+					
+					<br>
 					{{ form.Temperature.label}}
 					<br>
 					{{ form.Temperature}}
-					{{ form.set_temp }}
+					{{ form.incubate }}
 					
 					<br>
 					
+
+					
 				</div>
+				</fieldset>
 
 
 {% endblock %}

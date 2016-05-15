@@ -45,30 +45,20 @@ class RPiControl:
 			temp_c = float(temp_string) / 1000.0
 		return temp_c
 
+	def read_temp_json(self):
+		temperature = str(self.read_temp())
+		temperature = {'value':temperature}
+		return temperature
+
 
 	def temp_control(self):
-		while (True):
-			print (self.read_temp())
-			if self.read_temp() < self.temp :
-				GPIO.output(17,False) ## Turn on GPIO pin 7
-				time.sleep(0.5)
-				print 'heating'
-			elif self.read_temp() >= self.temp:
-				GPIO.output(17,True) ## Turn on GPIO pin 7
-				time.sleep(0.5)
-				print 'cooling'
-	
-	#GPIO.cleanup()
-	
-	
-#usage:
-#from temp_class import RPiControl
-#pin = RPiControl(17,'/sys/bus/w1/devices/28-00042b6579ff/w1_slave',37)
-#pin.set_pin()
-#pin.temp_control()
-#	
-
-
-
-
-
+		#while (True): # need to run this in background thread. a loop command
+		print (self.read_temp())
+		if self.read_temp() < self.temp :
+			GPIO.output(self.pin,False) ## Turn on GPIO pin 7
+			time.sleep(0.5)
+			print 'heating'
+		elif self.read_temp() >= self.temp:
+			GPIO.output(self.pin,True) ## Turn off GPIO pin 7
+			time.sleep(0.5)
+			print 'cooling'

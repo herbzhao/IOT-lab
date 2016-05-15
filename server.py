@@ -2,9 +2,9 @@ from flask import Flask, render_template, request, flash, jsonify
 from flask import redirect, url_for, session
 from form import ContactForm
 from IOT_Arduino import ArduinoControl
-import serial
+# If run on Raspberry Pi
+from IOT_RPi import RPiControl
 
-#from IOT_RPi import RPiControl
 
 app = Flask(__name__)
 app.secret_key= 'waterscope'
@@ -17,13 +17,14 @@ app.secret_key= 'waterscope'
 @app.route("/IOT", methods = ['GET', 'POST'])
 def contact():
 	global serial_port
+	global incubator
+	
 	# few variables initialise
 	form =  ContactForm()
 	if request.method == 'POST':	
 	#Change default value once user input  something
 		form.Port.default = form.Port.data
 		form.port_command.default = form.port_command.data
-		form.LED.default = form.LED.data
 		form.Temperature.default = form.Temperature.data
 		# Press set serial button
 		
@@ -46,19 +47,26 @@ def contact():
 			# return to HTML page once submit
 			return render_template('index.html', form = form)
 
-
-		# Press Led_switch button			
-		elif 'led_button' in request.form:
-		# radio button to control LED
-			if form.LED.data == '1':
-				serial_port.led_on()
-			elif form.LED.data == '2':
-				serial_port.led_off()		
+		# Press Led_on/off button			
+		elif 'led_button_on' in request.form:
+			serial_port.excute('high')
 			return render_template('index.html', form = form)
 			
+		elif 'led_button_off' in request.form:
+			serial_port.excute('low')
+			return render_template('index.html', form = form)
+
+
+		elif 'set_sensor' in request.form:
+			incubator = RPiControl(int(form.relay_pin.data), form.sensor_location.data,\
+				int(form.Temperature.data))
+			return render_template('index.html', form = form)
+						
 		# Press temperature change
-		elif 'set_temp' in request.form:
-			pass
+		elif 'incubate' in request.form:
+			incubator.set_pin()
+			incubator.temp_control()
+			return render_template('index.html', form = form)
 			
 		#initialise the form
 	elif request.method == 'GET':
@@ -67,11 +75,21 @@ def contact():
 		
 
 
-@app.route('/result')
+@app.route('/voltage')
 def serial_monitor():
 	global serial_port
 	voltage = serial_port.monitor()
 	return jsonify(voltage)
+	
+
+
+@app.route('/temperature')
+def read_temperature():
+	global incubator
+	temperature = incubator.read_temp_json()
+	return jsonify(temperature)
+	
+
 
 
 if __name__ == "__main__":
