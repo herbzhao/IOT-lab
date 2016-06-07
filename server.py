@@ -3,8 +3,9 @@ from flask import redirect, url_for, session
 from form import ContactForm
 from IOT_Arduino import ArduinoControl
 # If run on Raspberry Pi
-from IOT_RPi import RPiControl
-
+#~ from IOT_RPi import RPiControl
+#~ #celery task
+from tasks import temp_loop, count
 
 app = Flask(__name__)
 app.secret_key= 'waterscope'
@@ -18,6 +19,7 @@ app.secret_key= 'waterscope'
 def contact():
 	global serial_port
 	global incubator
+	global task
 	
 	# few variables initialise
 	form =  ContactForm()
@@ -59,14 +61,32 @@ def contact():
 
 		elif 'set_sensor' in request.form:
 			incubator = RPiControl(int(form.relay_pin.data), form.sensor_location.data,\
-				int(form.Temperature.data))
+				float(form.Temperature.data))
 			return render_template('index.html', form = form)
 						
 		# Press temperature change
 		elif 'incubate' in request.form:
 			incubator.set_pin()
-			incubator.temp_control()
+			task = temp_loop.delay(1,incubator)
 			return render_template('index.html', form = form)
+			
+		
+		elif 'terminate' in request.form:
+			task.revoke(terminate=True)
+			return render_template('index.html', form = form)
+			
+			
+		#~ # Press temperature change
+		#~ elif 'incubate' in request.form:
+			#~ incubator.set_pin()
+			#~ task = count.delay(1)
+			#~ return render_template('index.html', form = form)
+			
+		
+		#~ elif 'terminate' in request.form:
+			#~ task.revoke(terminate=True)
+			#~ return render_template('index.html', form = form)
+			
 			
 		#initialise the form
 	elif request.method == 'GET':
@@ -88,12 +108,19 @@ def read_temperature():
 	global incubator
 	temperature = incubator.read_temp_json()
 	return jsonify(temperature)
-	
 
+
+#~ @app.route('/incubator')
+#~ def incubate():
+	#~ global incubator
+	#~ incubator.set_pin()
+	#~ status = incubator.temp_control()
+	#~ return jsonify(status)
+	
 
 
 if __name__ == "__main__":
 #	app.run(host='0.0.0.0', port=80, debug=True)
 	#app.run(host='10.0.0.1', debug=True)
-	app.run(debug=True)
+	app.run(port=8000,debug=True)
 

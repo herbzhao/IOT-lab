@@ -19,7 +19,7 @@ class ContactForm(Form):
 	led_button_off = SubmitField("LED switch_off")    # click button to swtich on/off LED
 	
 	
-	relay_pin = TextField('Pin to control relay', default = '13')
+	relay_pin = TextField('Pin to control relay', default = '17')
 	
 	sensor_location = TextField('file location for sensor', default = '/sys/bus/w1/devices/28-00042b6579ff/w1_slave')
 	
@@ -28,6 +28,8 @@ class ContactForm(Form):
 	Temperature = TextField('Incubator temperature', default = '37')
 	
 	incubate = SubmitField("Start incubation")    # click button to change incubator temperature setting
+	
+	terminate = SubmitField("Stop incubation")    # click button to change incubator temperature setting
 	
 	
 	

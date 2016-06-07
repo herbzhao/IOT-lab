@@ -54,11 +54,11 @@ class RPiControl:
 	def temp_control(self):
 		#while (True): # need to run this in background thread. a loop command
 		print (self.read_temp())
+		time.sleep(1)
 		if self.read_temp() < self.temp :
 			GPIO.output(self.pin,False) ## Turn on GPIO pin 7
-			time.sleep(0.5)
-			print 'heating'
+			status  = {'value':'heating'}
 		elif self.read_temp() >= self.temp:
 			GPIO.output(self.pin,True) ## Turn off GPIO pin 7
-			time.sleep(0.5)
-			print 'cooling'
+			status = {'value':'cooling'}
+		return status

@@ -10,19 +10,41 @@ function temp_read() {
 
 
 
+//~ function incubator_status() {
+	//~ $.getJSON($SCRIPT_ROOT + '/temperature', function(data)
+	//~ {$('#temp').text(data.value);});
+//~ }
+
+
+
+//~ $('#set_sensor').click(function(){
+//~ setInterval(function(){ temp_read() }, 500);
+//~ });
+
 function repeater (){
-	setInterval(function(){ voltage_read() }, 90);
-	setInterval(function(){ temp_read() }, 200);
+	
+	//~ setInterval(function(){ voltage_read() }, 90);
+
+
+	setInterval(function(){ temp_read() }, 500);
+
 }
 
 
-$(document).ready(function(){
-	repeater()
+function repeater (){
+	setInterval(function(){ voltage_read() }, 90);
+}
 
+
+//~ $('#set_serial').click(repeater);
+
+$(document).ready(function(){
+
+    //~ $("#set_serial").click(function(){
+        //~ repeater()
+    //~ });
+    repeater()
 });
 
 
 
-//$(document).ready(function(){
-//	$('#start_monitor').click(function(){repeater()});$
-//});
