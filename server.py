@@ -3,9 +3,9 @@ from flask import redirect, url_for, session
 from form import ContactForm
 from IOT_Arduino import ArduinoControl
 # If run on Raspberry Pi
- from IOT_RPi import RPiControl
-#~ #celery task
-#from tasks import temp_loop, count
+ #~ from IOT_RPi import RPiControl
+#celery task
+#~ #from tasks import temp_loop, count
 
 app = Flask(__name__)
 app.secret_key= 'waterscope'
