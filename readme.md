@@ -4,7 +4,18 @@ Required package:
 Python
 
 Flask
+pip install Flask
+
+Flask -  WTF
+pip install Flask-WTF
 
 Pyserial
+pip install pyserial
+
+
+
+
 
 jmalloc's  arduino-mcp4xxx library : https://github.com/jmalloc/arduino-mcp4xxx
+
+
