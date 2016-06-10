@@ -21,7 +21,7 @@ function temp_read() {
 //~ setInterval(function(){ temp_read() }, 500);
 //~ });
 
-function repeater (){
+function repeater_temp (){
 	
 	//~ setInterval(function(){ voltage_read() }, 90);
 
@@ -31,7 +31,7 @@ function repeater (){
 }
 
 
-function repeater (){
+function repeater_voltage (){
 	setInterval(function(){ voltage_read() }, 90);
 }
 
@@ -43,7 +43,8 @@ $(document).ready(function(){
     //~ $("#set_serial").click(function(){
         //~ repeater()
     //~ });
-    repeater()
+    repeater_voltage();
+    repeater_temp();
 });
 
 
