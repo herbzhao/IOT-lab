@@ -3,9 +3,9 @@ from flask import redirect, url_for, session
 from form import ContactForm
 from IOT_Arduino import ArduinoControl
 # If run on Raspberry Pi
-#~ from IOT_RPi import RPiControl
+ from IOT_RPi import RPiControl
 #~ #celery task
-from tasks import temp_loop, count
+#from tasks import temp_loop, count
 
 app = Flask(__name__)
 app.secret_key= 'waterscope'
@@ -120,7 +120,7 @@ def read_temperature():
 
 
 if __name__ == "__main__":
-#	app.run(host='0.0.0.0', port=80, debug=True)
+	app.run(host='0.0.0.0', port=80, debug=True)
 	#app.run(host='10.0.0.1', debug=True)
-	app.run(port=8000,debug=True)
+#app.run(port=8000,debug=True)
 
