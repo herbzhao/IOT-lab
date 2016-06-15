@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<html>
+	<head>
+		<!-- Javascript location -->
+		<script type="text/javascript" src="{{url_for('static', filename='script.js') }}"></script>
+	</head>
+
+<body>
+		<h2>Control panel</h2>
+		
+<!--
+		<form action = "/" method = post>
+-->
+		
+			<fieldset>
+			
+
+
+
+				<!-- form start here -->
+				<div>
+					
+					<br>
+					{{ form.start }}
+					<br>
+					<br>
+					{{ form.stop }}
+					<br>
+					<input type="number" id="input" value="0" />
+					<br>
+					{{ form.test }}
+					<br>			
+					<br>
+					<input type="button" id="stop_html" value="stop"/>
+					<input type="button" id="start_html" value="start"/>
+					<input type="button" id="html_button" value="html button"/>
+					<br>		
+				
+
+					
+				</div>
+				</fieldset>
+
+
+{% endblock %}
+
+	</body>
+</html>

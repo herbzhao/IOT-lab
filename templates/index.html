@@ -29,10 +29,15 @@
 					{{ form.Port}}
 					<br>
 					{{ form.set_serial }}
+					<input type="button" id="volt_read" value="start volt read"/>
+					{{ form.clean_serial }}
+<!--
+					<input type="button" id="stop_volt_read" value="stop volt read"/>
+-->
 					<br>
-					
+					<br>
+					<h>To start/refresh: click set_serial and click start</h3>
 					<h3>Serial monitor</h3>
-		<!--<button type="button" id="start_monitor" name="start_monitor">Start reading</button><br><br>   -->
 					<strong><div id="voltage"></div></strong>
 					<br>
 					<br>

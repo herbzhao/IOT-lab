@@ -15,7 +15,10 @@ class ArduinoControl:
 	def set_serial(self):				
 		self.ser = serial.Serial(self.port,9600)
 #		time.sleep(2)  #serial port needs 2 sec to be ready
-  
+
+
+	def close_port(self):
+		self.ser.close()
   
 	def led_on(self):
 		self.ser.write('H')

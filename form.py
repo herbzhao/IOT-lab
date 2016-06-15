@@ -9,6 +9,8 @@ class ContactForm(Form):
 	
 	set_serial = SubmitField("Set Serial Port")  # Click button to set serial port
 	
+	clean_serial = SubmitField("Exit Serial Port")  # Click button to set serial port
+	
 	port_command = TextField('Any command to Arduino', default = '')
 	
 	send_command = SubmitField("Send command")    # click button to send command through serial
