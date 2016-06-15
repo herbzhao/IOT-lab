@@ -4,14 +4,16 @@ Required package:
 Python
 
 Flask
-pip install Flask
+<br> sudo pip install Flask
 
 Flask -  WTF
-pip install Flask-WTF
+<br> sudo pip install Flask-WTF
 
 Pyserial
-pip install pyserial
+<br> sudo pip install pyserial
 
+Arduino
+<br> sudo apt-get install arduino
 
 
 
