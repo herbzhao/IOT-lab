@@ -21,26 +21,33 @@ void setup() {
   Serial.end();
   Serial.begin(9600);
   //this speed up the String input = Serial.readString();
-  Serial.setTimeout(100);
+  Serial.setTimeout(150);
 }
 
 
 // the loop routine runs over and over again forever:
 void loop() {
-  voltage_read();
+  voltage_read(1);
+  voltage_read(0);
   serial_command();
-  delay(50);
+  delay(100);
 }
 
-void voltage_read(){
+void voltage_read(int pin){
 
   // read the input on analog pin 0:
-  int sensorValue = analogRead(A1);
+  int sensorValue = analogRead(pin);
   // Convert the analog reading (which goes from 0 - 1023) to a voltage (0 - 5V):
   float voltage = sensorValue * (5.0 / 1023.0);
   // print out the value you read:
   //print voltage line by line
-  Serial.println(voltage);
+  
+  Serial.print("pin");
+  Serial.print("A");
+  Serial.print(pin);
+  Serial.print(":  ");
+  Serial.print(voltage);
+  Serial.print("V \n \r");
 }
 
 
