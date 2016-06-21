@@ -1,3 +1,5 @@
+
+
 function voltage_read() {
 	$.getJSON($SCRIPT_ROOT + '/voltage', function(data)
 	{$('#voltage').text(data.value);});
@@ -18,7 +20,11 @@ function repeater_temp (){
 
 
 function repeater_voltage (){
-	setInterval(function(){ voltage_read(); }, 70);
+	var timer_voltage = setInterval(function(){ voltage_read(); }, 100);
+}
+
+function clean_voltage(){
+	clearInterval(timer_voltage)
 }
 
 
@@ -30,6 +36,8 @@ $(document).ready(function(){
 	repeater_voltage();
 	});
 	
-
+	$('#send_command').click(function(){
+	clean_voltage();
+	});
 });
 

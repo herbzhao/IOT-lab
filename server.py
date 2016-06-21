@@ -37,6 +37,7 @@ def contact():
 			serial_port.set_serial()
 			# return to HTML page once submit
 			return render_template('index.html', form = form)
+			
 		if 'clean_serial' in request.form: 
 			# initialise Arduino serial port
 			serial_port.close_port()
